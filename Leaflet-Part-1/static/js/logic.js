@@ -1,31 +1,7 @@
-// Creating the map object
-// let myMap = L.map("map", {
-//     centre: [39.8282, -98.5795],
-//     zoom: 4
-// });
-
-// // Adding the tile layer
-// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-// }).addTo(myMap);
-
-// // Link for the data
-// let geoData = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
-
-// // Getting geojson data using D3 function
-// d3.json(geoData).then(function(data){
-//     createFeatures(data.features);
-// });
-
-// function createFeatures(earthquakeData) {
-//     function onEachFeature(feature, layer) {
-//         layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`);
-// }}
-
-var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
+let url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 // Create the map
-var myMap = L.map("map", {
+let myMap = L.map("map", {
     center: [37.09, -95.71],
     zoom: 5
 });
@@ -66,6 +42,7 @@ d3.json(url).then(function (data) {
                 return "lightgreen";
         }
     }
+    
     // Establish magnitude size
     function mapRadius(mag) {
         if (mag === 0) {
@@ -92,12 +69,12 @@ d3.json(url).then(function (data) {
     }).addTo(myMap);
 
 // Add the legend with colors to corrolate with depth
-var legend = L.control({position: "bottomright"});
+let legend = L.control({position: "bottomright"});
 legend.onAdd = function() {
-  var div = L.DomUtil.create("div", "info legend"),
+  let div = L.DomUtil.create("div", "info legend"),
   depth = [-10, 10, 30, 50, 70, 90];
 
-  for (var i = 0; i < depth.length; i++) {
+  for (let i = 0; i < depth.length; i++) {
     div.innerHTML +=
     '<i style="background:' + mapColor(depth[i] + 1) + '"></i> ' + depth[i] + (depth[i + 1] ? '&ndash;' + depth[i + 1] + '<br>' : '+');
   }
